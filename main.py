@@ -11,8 +11,9 @@ else:
     exif = {}
 
 # פונקציה להמרת קואורדינטות לפורמט עשרוני
-def dms_to_decimal(degrees, minutes, seconds, direction):
-    decimal = degrees + minutes / 60 + seconds / 3600
+def dms_to_decimal(dms_tuple, direction):
+    degrees, minutes, seconds = dms_tuple
+    decimal = degrees + (minutes / 60.0) + (seconds / 3600.0)
     if direction in ['S', 'W']:
         decimal = -decimal
     return decimal
@@ -29,23 +30,35 @@ with open("image_metadata.txt", "w") as file:
     
     # בדיקה אם קיימים נתוני GPS
     if "GPSInfo" in exif:
-        def gps_info_to_string(gps_info):
-            lat_degrees, lat_minutes, lat_seconds = gps_info[2]
-            lat_direction = gps_info[1]
+        gps_info = exif["GPSInfo"]
+        print("Raw GPS Data:", gps_info)  # הדפסת נתוני GPS גולמיים
+        
+        try:
+            # קבלת נתוני קואורדינטות
+            lat_dms = gps_info.get(2)
+            lat_direction = gps_info.get(1)
 
-            lon_degrees, lon_minutes, lon_seconds = gps_info[4]
-            lon_direction = gps_info[3]
+            lon_dms = gps_info.get(4)
+            lon_direction = gps_info.get(3)
 
-            # המרת הקואורדינטות לפורמט עשרוני
-            latitude_decimal = dms_to_decimal(lat_degrees, lat_minutes, lat_seconds, lat_direction)
-            longitude_decimal = dms_to_decimal(lon_degrees, lon_minutes, lon_seconds, lon_direction)
+            # בדיקה אם קיימים כל נתוני הקואורדינטות
+            if lat_dms and lat_direction and lon_dms and lon_direction:
+                # המרת הקואורדינטות לפורמט עשרוני
+                latitude_decimal = dms_to_decimal(lat_dms, lat_direction)
+                longitude_decimal = dms_to_decimal(lon_dms, lon_direction)
 
-            # שרשור התוצאה לשימוש ישיר ב-Google Maps
-            return f"{latitude_decimal}, {longitude_decimal}"
-
-        gps_decimal = gps_info_to_string(exif["GPSInfo"])
-        file.write("\nGPS Coordinates (for Google Maps):\n")
-        file.write(gps_decimal + "\n")
+                # שרשור הקואורדינטות לפורמט המתאים ל-Google Maps
+                gps_decimal = f"{latitude_decimal}, {longitude_decimal}"
+                print("Decimal GPS Coordinates:", gps_decimal)  # הדפסת הקואורדינטות בפורמט עשרוני
+                
+                # כתיבת קואורדינטות בפורמט לשימוש ב-Google Maps
+                file.write("\nGPS Coordinates (for Google Maps):\n")
+                file.write(gps_decimal + "\n")
+            else:
+                file.write("Incomplete GPS information found\n")
+        except Exception as e:
+            file.write("\nError processing GPS information\n")
+            print("Error processing GPS information:", e)
     else:
         file.write("No GPS information found\n")
 
