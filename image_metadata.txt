@@ -1,0 +1,43 @@
+Metadata Information:
+ImageWidth: 5760
+ImageLength: 4312
+GPSInfo: {1: 'N', 2: (30.0, 36.0, 30.435479), 3: 'E', 4: (34.0, 48.0, 24.294599)}
+ResolutionUnit: 2
+ExifOffset: 238
+Make: samsung
+Model: SM-A505F
+Software: A505FDDS9CVJ1
+Orientation: 6
+DateTime: 2022:11:29 11:59:54
+YCbCrPositioning: 1
+XResolution: 72.0
+YResolution: 72.0
+ExifVersion: b'0220'
+ShutterSpeedValue: 0.002288329519450801
+ApertureValue: 2.0
+DateTimeOriginal: 2022:11:29 11:59:54
+DateTimeDigitized: 2022:11:29 11:59:54
+BrightnessValue: 19.76
+ExposureBiasValue: 0.0
+MaxApertureValue: 2.0
+MeteringMode: 2
+Flash: 0
+FocalLength: 3.75
+ColorSpace: 1
+ExifImageWidth: 5760
+DigitalZoomRatio: 1.0
+FocalLengthIn35mmFilm: 25
+SceneCaptureType: 0
+OffsetTime: +02:00
+OffsetTimeOriginal: +02:00
+ExifImageHeight: 4312
+ExposureTime: 0.002288329519450801
+FNumber: 2.0
+ImageUniqueID: A25LLLA00YM
+ExposureProgram: 2
+ISOSpeedRatings: 40
+ExposureMode: 0
+WhiteBalance: 0
+
+GPS Coordinates (for Google Maps):
+110190435479/3600000000, 125304294599/3600000000
